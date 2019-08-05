@@ -7,4 +7,4 @@ export const application = {
 
 export const credentials = {};
 
-export const clientId = 'WkQgQXBwIEVtYmVkMTU2NTAyNDg2MjcyNzViODMyZTRmLWRiYWEtNGE3MC1iNjNiLTUzMzRiZDU3Mzk2MQ==';
+export const clientId = 'WkQgQXBwIEVtYmVkMTU2NTA0NjQ5NTgzMzlmYjU1ZGQ5LWQyYTktNDE3MC04YWRjLWNjYWRmMjZhNTBmZg==';
