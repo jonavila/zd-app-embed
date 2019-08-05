@@ -3,8 +3,8 @@ import { Redirect } from '@reach/router';
 import React, { useCallback, useContext } from 'react';
 import { ZoomdataAccessToken } from '../App';
 import logo from '../assets/zoomdata-logo-charcoal.svg';
-import { authorizeUser } from '../utils';
 import { credentials } from '../config/zoomdata';
+import { authorizeUser } from '../utils';
 import styles from './Login.module.css';
 
 function RedirectToPage() {
@@ -24,6 +24,7 @@ export function Login(props) {
   const handleLogin = useCallback(async () => {
     const extractedToken = await authorizeUser();
     credentials.access_token = extractedToken;
+    console.log(extractedToken);
     setAccessToken(extractedToken);
   }, [setAccessToken]);
 

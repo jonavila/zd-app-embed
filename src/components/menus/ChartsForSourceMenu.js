@@ -1,6 +1,6 @@
 import { Menu, MenuItem, Spinner } from '@blueprintjs/core';
 import { sortBy } from 'lodash-es';
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ZoomdataAccessToken } from '../../App';
 import { getChartsForSource } from '../../requests';
 import styles from './ChartsForSourceMenu.module.css';

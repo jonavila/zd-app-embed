@@ -37,7 +37,7 @@ function reducer(state, action) {
 }
 
 export function DashboardWidget(props) {
-  const { name, sourceName } = props;
+  const { name, sourceName, sourceConfig } = props;
   const accessToken = useContext(ZoomdataAccessToken);
   const client = useContext(ZoomdataClient);
   const [state, dispatch] = useReducer(reducer, {
@@ -75,8 +75,8 @@ export function DashboardWidget(props) {
           source = client.sources.add(fetchedSource)[0];
         }
 
-        const queryConfig = { filters: [], ...getQueryConfigTimeAndPlayer(source) };
-        const visVariables = getVisVariables(source, name);
+        const queryConfig = { filters: [], ...getQueryConfigTimeAndPlayer(sourceConfig) };
+        const visVariables = sourceConfig.variables;
         const chart = await client.visualize({
           config: queryConfig,
           element: chartEl,
@@ -96,7 +96,7 @@ export function DashboardWidget(props) {
     }
 
     renderChart();
-  }, [client, name, sourceName, accessToken]);
+  }, [client, name, sourceName, accessToken, sourceConfig]);
 
   return (
     <div className={styles.root}>
@@ -116,7 +116,7 @@ export function WidgetPlaceholder() {
   return (
     <div className={styles.root}>
       <NonIdealState
-        description="Click on Add Chart to select a Source and a Chart Type."
+        description="Click on Add Chart to select a chart to embed."
         icon="chart"
         title="No Chart Selected"
       />

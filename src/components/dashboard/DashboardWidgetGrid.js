@@ -11,7 +11,14 @@ export function DashboardWidgetGrid(props) {
         widgets.map(widget => {
           const { chartId, name, source } = widget;
 
-          return <DashboardWidget name={name} key={`${source.id}_${chartId}`} sourceName={source.name} />;
+          return (
+            <DashboardWidget
+              name={name}
+              key={`${source.id}_${chartId}`}
+              sourceName={source.name}
+              sourceConfig={source}
+            />
+          );
         })
       ) : (
         <WidgetPlaceholder />

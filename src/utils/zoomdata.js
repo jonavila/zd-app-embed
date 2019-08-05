@@ -77,9 +77,8 @@ export function getVisVariables(source, chartName) {
   return source.visualizations.filter(visualization => visualization.name === chartName)[0].source.variables;
 }
 
-let popup;
-
 export async function authorizeUser() {
+  let popup;
   const zoomdataUrl = getZoomdataUrl();
   popup = window.open(
     `${zoomdataUrl}/oauth/authorize?client_id=${clientId}&redirect_uri=${window.location.origin}/signIn&response_type=token&scope=read`,

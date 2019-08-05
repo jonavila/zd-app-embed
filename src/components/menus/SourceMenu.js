@@ -1,5 +1,5 @@
 import { Menu, MenuItem, Spinner } from '@blueprintjs/core';
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ZoomdataAccessToken } from '../../App';
 import { getSources } from '../../requests';
 import { getZoomdataUrl } from '../../utils';
