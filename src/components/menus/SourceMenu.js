@@ -1,5 +1,6 @@
 import { Menu, MenuItem, Spinner } from '@blueprintjs/core';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { ZoomdataAccessToken } from '../../App';
 import { getSources } from '../../requests';
 import { getZoomdataUrl } from '../../utils';
 import styles from './SourceMenu.module.css';
@@ -15,13 +16,14 @@ function ConnectionTypeIcon(props) {
 }
 
 export function SourceMenu(props) {
+  const accessToken = useContext(ZoomdataAccessToken);
   const { initialSources = [], onFetchEnd = () => {}, onItemClick } = props;
   const [sources, setSources] = useState(initialSources);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const fetchedSources = await getSources();
+        const fetchedSources = await getSources(accessToken);
         onFetchEnd(fetchedSources);
         setSources(fetchedSources);
       } catch (error) {
@@ -32,7 +34,7 @@ export function SourceMenu(props) {
     if (initialSources.length === 0) {
       fetchData();
     }
-  }, [initialSources.length, onFetchEnd]);
+  }, [initialSources.length, onFetchEnd, accessToken]);
 
   return (
     <Menu>

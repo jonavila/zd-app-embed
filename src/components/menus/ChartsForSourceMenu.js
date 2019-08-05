@@ -1,17 +1,19 @@
 import { Menu, MenuItem, Spinner } from '@blueprintjs/core';
 import { sortBy } from 'lodash-es';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
+import { ZoomdataAccessToken } from '../../App';
 import { getChartsForSource } from '../../requests';
 import styles from './ChartsForSourceMenu.module.css';
 
 export function ChartsForSourceMenu(props) {
+  const accessToken = useContext(ZoomdataAccessToken);
   const { initialCharts = [], onFetchEnd = () => {}, onItemClick, source } = props;
   const [charts, setCharts] = useState(initialCharts);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const fetchedCharts = await getChartsForSource(source.id);
+        const fetchedCharts = await getChartsForSource(source.id, accessToken);
         onFetchEnd(fetchedCharts, source.id);
         setCharts(fetchedCharts);
       } catch (error) {
@@ -22,7 +24,7 @@ export function ChartsForSourceMenu(props) {
     if (initialCharts.length === 0) {
       fetchData();
     }
-  }, [initialCharts.length, onFetchEnd, source.id]);
+  }, [initialCharts.length, onFetchEnd, source.id, accessToken]);
 
   return (
     <Menu className={styles.root}>

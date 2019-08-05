@@ -1,40 +1,29 @@
-import { Spinner } from '@blueprintjs/core';
-import React, { createContext, useEffect, useState } from 'react';
+import { FocusStyleManager } from '@blueprintjs/core';
+import { Redirect, Router } from '@reach/router';
+import React, { createContext, useState } from 'react';
 import './App.css';
-import { Dashboard, NavigationBar } from './components';
-import { createClient, loadZoomdataSDK } from './utils';
+import { PrivateRoute } from './components/private-route/PrivateRoute';
+import { Home } from './pages/Home';
+import { Login } from './pages/Login';
+import { SignIn } from './pages/SignIn';
 
-export const ZoomdataClient = createContext(null);
+FocusStyleManager.onlyShowFocusOnTabs();
+export const ZoomdataAccessToken = createContext(null);
 
 function App() {
-  const [client, setClient] = useState(null);
-
-  useEffect(() => {
-    async function initApp() {
-      try {
-        await loadZoomdataSDK();
-        setClient(await createClient());
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    initApp();
-  }, []);
+  const [accessToken, setAccessToken] = useState(null);
 
   return (
-    <div className="app">
-      {client ? (
-        <ZoomdataClient.Provider value={client}>
-          <NavigationBar />
-          <div className="main-container">
-            <Dashboard />
-          </div>
-        </ZoomdataClient.Provider>
-      ) : (
-        <Spinner className="spinner" size={Spinner.SIZE_LARGE} />
-      )}
-    </div>
+    <ZoomdataAccessToken.Provider value={accessToken}>
+      <Router>
+        <PrivateRoute path="/">
+          <Home path="home" />
+        </PrivateRoute>
+        <SignIn path="/signIn" />
+        <Login path="login" setAccessToken={setAccessToken} />
+        <Redirect noThrow from="/" to="home" />
+      </Router>
+    </ZoomdataAccessToken.Provider>
   );
 }
 

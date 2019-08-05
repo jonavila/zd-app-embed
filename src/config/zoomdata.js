@@ -5,6 +5,6 @@ export const application = {
   secure: true,
 };
 
-export const credentials = {
-  key: 'lfaLYGk3rE',
-};
+export const credentials = {};
+
+export const clientId = 'WkQgQXBwIEVtYmVkMTU2NTAyNDg2MjcyNzViODMyZTRmLWRiYWEtNGE3MC1iNjNiLTUzMzRiZDU3Mzk2MQ==';

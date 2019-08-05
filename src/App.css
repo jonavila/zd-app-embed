@@ -12,19 +12,3 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
-
-.app {
-  display: flex;
-  flex-flow: column;
-  height: 100vh;
-}
-
-.app > .main-container {
-  display: flex;
-  flex-flow: column;
-  flex: 1;
-}
-
-.spinner {
-  flex: 1;
-}

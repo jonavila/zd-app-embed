@@ -1,0 +1,15 @@
+.root {
+  display: flex;
+  flex-flow: column;
+  height: 100vh;
+}
+
+.mainContainer {
+  display: flex;
+  flex-flow: column;
+  flex: 1;
+}
+
+.spinner {
+  flex: 1;
+}

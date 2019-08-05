@@ -1,6 +1,7 @@
 import { NonIdealState, ResizeSensor, Spinner } from '@blueprintjs/core';
 import React, { useCallback, useContext, useEffect, useReducer, useRef } from 'react';
-import { ZoomdataClient } from '../../App';
+import { ZoomdataAccessToken } from '../../App';
+import { ZoomdataClient } from '../../pages/Home';
 import { getSource } from '../../requests';
 import { getQueryConfigTimeAndPlayer, getVisVariables } from '../../utils';
 import styles from './DashboardWidget.module.css';
@@ -37,6 +38,7 @@ function reducer(state, action) {
 
 export function DashboardWidget(props) {
   const { name, sourceName } = props;
+  const accessToken = useContext(ZoomdataAccessToken);
   const client = useContext(ZoomdataClient);
   const [state, dispatch] = useReducer(reducer, {
     visualized: false,
@@ -69,7 +71,7 @@ export function DashboardWidget(props) {
 
         if (!source) {
           // source is not cached so let's fetch it and cache it
-          const fetchedSource = (await getSource(sourceName))[0];
+          const fetchedSource = (await getSource(sourceName, accessToken))[0];
           source = client.sources.add(fetchedSource)[0];
         }
 
@@ -94,7 +96,7 @@ export function DashboardWidget(props) {
     }
 
     renderChart();
-  }, [client, name, sourceName]);
+  }, [client, name, sourceName, accessToken]);
 
   return (
     <div className={styles.root}>

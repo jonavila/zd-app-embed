@@ -1,5 +1,6 @@
-import { application, credentials } from '../config/zoomdata';
+import { application, clientId, credentials } from '../config/zoomdata';
 import { AppToaster } from './AppToaster';
+import { getPopupDimensions } from './popup';
 import { ScriptLoader } from './ScriptLoader';
 
 export function getZoomdataUrl() {
@@ -74,4 +75,28 @@ export function getQueryConfigTimeAndPlayer(source = { controlsCfg: {} }) {
 
 export function getVisVariables(source, chartName) {
   return source.visualizations.filter(visualization => visualization.name === chartName)[0].source.variables;
+}
+
+let popup;
+
+export async function authorizeUser() {
+  const zoomdataUrl = getZoomdataUrl();
+  popup = window.open(
+    `${zoomdataUrl}/oauth/authorize?client_id=${clientId}&redirect_uri=${window.location.origin}/signIn&response_type=token&scope=read`,
+    '',
+    `scrollbars=no,toolbar=no,location=no,titlebar=no,directories=no,status=no,menubar=no, ${getPopupDimensions()}`,
+  );
+
+  const accessToken = await new Promise((resolve, reject) => {
+    window.addEventListener('message', event => {
+      if (event.data.type === 'signIn') {
+        popup.close();
+        const { accessToken } = event.data.data;
+        resolve(accessToken);
+      }
+    });
+    window.onmessageerror = () => reject();
+  });
+
+  return Promise.resolve(accessToken);
 }
