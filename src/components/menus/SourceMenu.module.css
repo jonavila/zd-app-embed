@@ -1,0 +1,8 @@
+.root {
+  composes: menuScrollable from './Menu.module.css';
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+}

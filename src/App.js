@@ -1,24 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
+import { Spinner } from '@blueprintjs/core';
+import React, { createContext, useEffect, useState } from 'react';
 import './App.css';
+import { Dashboard, NavigationBar } from './components';
+import { createClient, loadZoomdataSDK } from './utils';
+
+export const ZoomdataClient = createContext(null);
 
 function App() {
+  const [client, setClient] = useState(null);
+
+  useEffect(() => {
+    async function initApp() {
+      try {
+        await loadZoomdataSDK();
+        setClient(await createClient());
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    initApp();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      {client ? (
+        <ZoomdataClient.Provider value={client}>
+          <NavigationBar />
+          <div className="main-container">
+            <Dashboard />
+          </div>
+        </ZoomdataClient.Provider>
+      ) : (
+        <Spinner className="spinner" size={Spinner.SIZE_LARGE} />
+      )}
     </div>
   );
 }

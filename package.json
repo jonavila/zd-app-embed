@@ -3,8 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
+    "@blueprintjs/core": "3.18.0",
+    "husky": "3.0.2",
+    "ky": "0.11.2",
+    "lint-staged": "9.2.1",
+    "lodash-es": "4.17.15",
+    "prettier": "1.18.2",
+    "react": "16.8.6",
+    "react-dom": "16.8.6",
     "react-scripts": "3.0.1"
   },
   "scripts": {
@@ -27,5 +33,21 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --single-quote --write",
+      "git add"
+    ]
+  },
+  "prettier": {
+    "printWidth": 120,
+    "trailingComma": "all",
+    "singleQuote": true
   }
 }

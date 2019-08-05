@@ -1,0 +1,13 @@
+.root {
+  display: flex;
+  padding: 5px 8px 0;
+}
+
+.controls {
+  display: flex;
+}
+
+.controlsRight {
+  composes: controls;
+  margin-left: auto;
+}

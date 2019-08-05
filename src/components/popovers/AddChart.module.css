@@ -1,0 +1,41 @@
+.panelStack {
+  width: 250px;
+  min-height: 250px;
+  height: auto;
+  max-height: calc(100vh - 200px);
+}
+
+.panelStack > :global(.bp3-panel-stack-view) {
+  position: relative;
+  width: 250px;
+  height: auto;
+  min-height: 250px;
+  max-height: calc(100vh - 200px);
+}
+
+.panelHeader {
+  display: flex;
+  flex-flow: column;
+}
+
+.panelHeaderTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  font-size: 20px;
+}
+
+.panelHeaderTitle > span {
+  flex: 1;
+}
+
+.panelHeaderSubTitle {
+  padding: 0 8px;
+  font-size: 12px;
+}
+
+.sourceLabel {
+  font-weight: bold;
+  text-transform: uppercase;
+}
