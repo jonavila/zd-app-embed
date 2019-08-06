@@ -75,7 +75,7 @@ export function DashboardWidget(props) {
           source = client.sources.add(fetchedSource)[0];
         }
 
-        const queryConfig = { filters: [], ...getQueryConfigTimeAndPlayer(sourceConfig) };
+        const queryConfig = { filters: sourceConfig.filters, ...getQueryConfigTimeAndPlayer(sourceConfig) };
         const visVariables = sourceConfig.variables;
         const chart = await client.visualize({
           config: queryConfig,
